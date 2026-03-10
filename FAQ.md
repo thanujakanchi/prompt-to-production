@@ -13,8 +13,6 @@
 3. Describe what you're seeing and what you expected.
 4. Add a screenshot if it helps!
 
----
-
 ## 🚀 Creating a Pull Request (PR)
 
 ### Step 1: Fork the Repo
@@ -27,7 +25,30 @@ git clone https://github.com/[your-username]/prompt-to-production.git
 cd prompt-to-production
 ```
 
-### Step 3: Create a Branch
+---
+
+## 📥 Clone & Download Issues
+
+### ❌ Error: "Permission Denied (publickey)"
+This happens if you haven't set up SSH keys on GitHub.
+- **Quick Fix:** Use the **HTTPS** URL instead of SSH.
+- Copy the URL starting with \`https://github.com/...\` from the green **Code** button.
+
+### ❌ Error: "Cloned an empty repository"
+If your folder is empty after cloning:
+1. **Check your URL:** Ensure you are cloning your **fork** (e.g., \`github.com/YOUR-NAME/...\`) and not a blank repository.
+2. **Check your folder:** Run \`cd prompt-to-production\` and then \`ls -la\`. Sometimes files are there but hidden!
+3. **Check the branch:** Ensure you are on the \`main\` branch by running \`git branch\`.
+
+### ❌ Still can't clone? (Download as ZIP)
+If Git is giving you too much trouble:
+1. Click the green **Code** button on GitHub.
+2. Select **Download ZIP**.
+3. Extract the files and then run \`git init\` inside that folder to start your Git journey manually.
+
+---
+
+## 🚧 Common Troubleshooting
 **Crucial:** Do not work on the `main` branch. Create a new one:
 ```bash
 git checkout -b participant/[your-name]-[city]
