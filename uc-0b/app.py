@@ -1,39 +1,49 @@
-"""
-UC-0B — Policy Q&A
-"""
+import argparse
 
-import os
+def extract_clauses(text):
+    # Split complaint into clauses using simple separators
+    separators = [".", ",", "and", "but"]
+    clauses = [text]
 
-def load_policies(folder):
-    policies = {}
+    for sep in separators:
+        temp = []
+        for clause in clauses:
+            temp.extend(clause.split(sep))
+        clauses = temp
 
-    for file in os.listdir(folder):
-        if file.endswith(".txt"):
-            with open(os.path.join(folder, file), encoding="utf-8") as f:
-                policies[file] = f.read()
-
-    return policies
+    # Clean and remove empty clauses
+    clauses = [c.strip() for c in clauses if c.strip()]
+    return clauses
 
 
-def search_policy(policies, query):
-    for name, text in policies.items():
-        if query.lower() in text.lower():
-            return name, text
+def process_complaint(text):
+    clauses = extract_clauses(text)
 
-    return None
+    if not clauses:
+        return {
+            "clauses": [text],
+            "flag": "NEEDS_REVIEW"
+        }
+
+    return {
+        "clauses": clauses,
+        "flag": ""
+    }
 
 
 def main():
-    policies = load_policies("data/policy-documents")
+    parser = argparse.ArgumentParser(description="UC-0B Clause Extraction")
+    parser.add_argument("--text", required=True, help="Complaint text")
+    args = parser.parse_args()
 
-    query = input("Ask policy question: ")
+    result = process_complaint(args.text)
 
-    result = search_policy(policies, query)
+    print("Clauses:")
+    for i, clause in enumerate(result["clauses"], 1):
+        print(f"{i}. {clause}")
 
-    if result:
-        print(result[1])
-    else:
-        print("No matching policy found")
+    if result["flag"]:
+        print("Flag:", result["flag"])
 
 
 if __name__ == "__main__":
